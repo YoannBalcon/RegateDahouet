@@ -60,12 +60,12 @@ public class VoilierDao {
         }
     }
 
-    public static List<Voilier> findAll() throws SQLException {
-        Connection cn = ConnectDb.getConnection();
+    public static List<Voilier> findAll() {
         List<Voilier> stagiaires = new ArrayList<>();
         PreparedStatement st;
 
         try {
+            Connection cn = ConnectDb.getConnection();
             st = (PreparedStatement) cn.prepareStatement("SELECT v.id_voilier, v.nom, v.numvoile, pro.id_proprietaire, per.nom, per.prenom, c.nom FROM voilier v INNER JOIN proprietaire pro ON v.id_proprietaire=pro.id_proprietaire INNER JOIN classe c ON v.id_classe= c.id_classe INNER JOIN personne per ON pro.id_personne=per.id_personne");
 
             ResultSet rs = (ResultSet) st.executeQuery();

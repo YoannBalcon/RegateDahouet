@@ -6,6 +6,7 @@
 package RegateDahouet.main;
 
 import RegateDahouet.model.DahouetFrame;
+import java.sql.SQLException;
 
 /**
  *
@@ -16,7 +17,7 @@ public class RegateDahouet {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
 DahouetFrame mainFrame = new DahouetFrame();
         mainFrame.setVisible(true);    }
     

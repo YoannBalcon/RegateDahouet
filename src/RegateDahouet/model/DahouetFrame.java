@@ -19,6 +19,8 @@ import java.util.logging.Logger;
  */
 public class DahouetFrame extends javax.swing.JFrame {
 
+    TableauVoilier tblv;
+    
     /**
      * Creates new form DahouetFrame
      */
@@ -46,7 +48,7 @@ public class DahouetFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        Table1 = new javax.swing.JTable();
+        TableauVoilier = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         lblShipName = new javax.swing.JLabel();
         txtNameShip = new javax.swing.JTextField();
@@ -62,18 +64,9 @@ public class DahouetFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Table1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(Table1);
+        tblv = new TableauVoilier(VoilierDao.findAll());
+        TableauVoilier.setModel(tblv);
+        jScrollPane1.setViewportView(TableauVoilier);
 
         lblShipName.setText("Nom du voilier");
 
@@ -152,7 +145,7 @@ public class DahouetFrame extends javax.swing.JFrame {
                     .addComponent(lblShipClass))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(373, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,9 +161,9 @@ public class DahouetFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -244,7 +237,7 @@ public class DahouetFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Table1;
+    private javax.swing.JTable TableauVoilier;
     private javax.swing.JButton btnAddShip;
     private javax.swing.JButton btnEraseShipForm;
     private javax.swing.JComboBox<Classe> comboShipClass;
