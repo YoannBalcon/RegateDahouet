@@ -11,20 +11,20 @@ import java.util.Calendar;
  *
  * @author ybalcon
  */
-public class Licencie extends Personne {
+public class LicencieExo extends PersonneExo {
 
     int numLicence;
     double pointFFV;
     int anneeLicence;
 
-    public Licencie(String nom, String prenom, String email, int anneeNaissance, int numLicence, double pointFFV, int anneeLicence)  {
+    public LicencieExo(String nom, String prenom, String email, int anneeNaissance, int numLicence, double pointFFV, int anneeLicence)  {
         super(nom, prenom, email, anneeNaissance);
         this.numLicence = numLicence;
         this.pointFFV = pointFFV;
         this.anneeLicence = anneeLicence;
     }
 
-    public Licencie() {
+    public LicencieExo() {
     }
 
     public int getNumLicence() {

@@ -9,13 +9,13 @@ package RegateDahouet.exoModel;
  *
  * @author ybalcon
  */
-public class Proprietaire extends Personne{
+public class ProprietaireExo extends PersonneExo{
     
-    public Proprietaire(String nom, String prenom, String email, int anneeNaissance) {
+    public ProprietaireExo(String nom, String prenom, String email, int anneeNaissance) {
         super(nom, prenom, email, anneeNaissance);
     }
 
-    public Proprietaire() {
+    public ProprietaireExo() {
     }
     
     

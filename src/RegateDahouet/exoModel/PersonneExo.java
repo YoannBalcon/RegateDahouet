@@ -12,33 +12,33 @@ import java.util.GregorianCalendar;
  *
  * @author ybalcon
  */
-public class Personne {
+public class PersonneExo {
 
     String nom;
     String prenom;
     String email;
     int anneeNaissance;
 
-    public Personne(String nom, String prenom, String email) {
+    public PersonneExo(String nom, String prenom, String email) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
     }
 
-    public Personne(String nom, String prenom, int anneeNaissance) {
+    public PersonneExo(String nom, String prenom, int anneeNaissance) {
         this.nom = nom;
         this.prenom = prenom;
         this.anneeNaissance = anneeNaissance;
     }
 
-    public Personne(String nom, String prenom, String email, int anneeNaissance) {
+    public PersonneExo(String nom, String prenom, String email, int anneeNaissance) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.anneeNaissance = anneeNaissance;
     }
 
-    public Personne() {
+    public PersonneExo() {
     }
 
     public String getNom() {

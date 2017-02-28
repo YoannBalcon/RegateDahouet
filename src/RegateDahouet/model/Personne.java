@@ -10,6 +10,7 @@ package RegateDahouet.model;
  * @author ybalcon
  */
 public class Personne {
+
     int id_personne;
     String nom;
     String prenom;
@@ -29,6 +30,13 @@ public class Personne {
         this.anneeLicence = anneeLicence;
         this.dateNaissance = dateNaissance;
     }
+
+    public Personne(int id_personne, String nom, String prenom) {
+        this.id_personne = id_personne;
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+    
 
     public int getId_personne() {
         return id_personne;
@@ -93,6 +101,10 @@ public class Personne {
     public void setDateNaissance(int dateNaissance) {
         this.dateNaissance = dateNaissance;
     }
-    
-    
+
+    public String toString() {
+
+        return prenom + " " + nom;
+
+    }
 }

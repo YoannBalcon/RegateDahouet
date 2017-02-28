@@ -9,19 +9,19 @@ package RegateDahouet.exoModel;
  *
  * @author ybalcon
  */
-public class Commissaire extends Personne{
+public class CommissaireExo extends PersonneExo{
     String comite;
 
-    public Commissaire(String nom, String prenom, String email, int anneeNaissance) {
+    public CommissaireExo(String nom, String prenom, String email, int anneeNaissance) {
         super(nom, prenom, email, anneeNaissance);
     }
 
-     public Commissaire(String nom, String prenom, String email, int anneeNaissance, String comite) {
+     public CommissaireExo(String nom, String prenom, String email, int anneeNaissance, String comite) {
         super(nom, prenom, email, anneeNaissance);
         this.comite = comite;
     }
      
-    public Commissaire() {
+    public CommissaireExo() {
     }
 
     public String getComite() {

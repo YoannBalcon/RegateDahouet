@@ -5,6 +5,14 @@
  */
 package RegateDahouet.model;
 
+import RegateDahouet.Dao.ClasseDao;
+import RegateDahouet.Dao.ProprietaireDao;
+import RegateDahouet.Dao.VoilierDao;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ybalcon
@@ -14,8 +22,18 @@ public class DahouetFrame extends javax.swing.JFrame {
     /**
      * Creates new form DahouetFrame
      */
-    public DahouetFrame() {
+    public DahouetFrame() throws SQLException {
         initComponents();
+
+        List<Proprietaire> proprietaires = ProprietaireDao.findAll();
+        for (Proprietaire p : proprietaires) {
+            comboShipOwner.addItem(p);
+        }
+        
+        List<Classe> classes = ClasseDao.findAll();
+        for (Classe c : classes){
+            comboShipClass.addItem(c);
+        }
     }
 
     /**
@@ -61,9 +79,11 @@ public class DahouetFrame extends javax.swing.JFrame {
 
         lblNumShip.setText("Numéro de voile");
 
-        comboShipOwner.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        comboShipClass.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboShipOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboShipOwnerActionPerformed(evt);
+            }
+        });
 
         lblShipOwner.setText("Propriétaire");
 
@@ -161,12 +181,32 @@ public class DahouetFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddShipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddShipActionPerformed
-        // TODO add your handling code here:
+        String v_nom = txtNameShip.getText();
+        int v_numVoile = Integer.parseInt(txtNumSail.getText());
+        Proprietaire v_proprietaire = (Proprietaire) comboShipOwner.getSelectedItem();
+        Classe v_classe = (Classe) comboShipClass.getSelectedItem();
+
+        Voilier v = new Voilier(0, v_nom, v_numVoile, v_proprietaire, v_classe);
+        
+        try {
+            VoilierDao.create(v);
+            txtNameShip.setText(null);
+            txtNumSail.setText(null);
+        } catch (SQLException ex) {
+            Logger.getLogger(DahouetFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnAddShipActionPerformed
 
     private void btnEraseShipFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEraseShipFormActionPerformed
-        // TODO add your handling code here:
+        txtNameShip.setText(null);
+        txtNumSail.setText(null);
+
     }//GEN-LAST:event_btnEraseShipFormActionPerformed
+
+    private void comboShipOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboShipOwnerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboShipOwnerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,7 +238,7 @@ public class DahouetFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DahouetFrame().setVisible(true);
+              
             }
         });
     }
@@ -207,8 +247,8 @@ public class DahouetFrame extends javax.swing.JFrame {
     private javax.swing.JTable Table1;
     private javax.swing.JButton btnAddShip;
     private javax.swing.JButton btnEraseShipForm;
-    private javax.swing.JComboBox<String> comboShipClass;
-    private javax.swing.JComboBox<String> comboShipOwner;
+    private javax.swing.JComboBox<Classe> comboShipClass;
+    private javax.swing.JComboBox<Proprietaire> comboShipOwner;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -219,4 +259,5 @@ public class DahouetFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtNameShip;
     private javax.swing.JTextField txtNumSail;
     // End of variables declaration//GEN-END:variables
+
 }

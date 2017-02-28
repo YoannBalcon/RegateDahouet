@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import RegateDahouet.exoModel.Commissaire;
-import RegateDahouet.exoModel.Licencie;
-import RegateDahouet.exoModel.Personne;
-import RegateDahouet.exoModel.Proprietaire;
+import RegateDahouet.exoModel.CommissaireExo;
+import RegateDahouet.exoModel.LicencieExo;
+import RegateDahouet.exoModel.PersonneExo;
+import RegateDahouet.exoModel.ProprietaireExo;
 
 /**
  *
@@ -31,11 +31,11 @@ public class ExoEcf {
         cal.set(Calendar.DAY_OF_MONTH, 27);
 
         //METHODE toString()\\
-        Personne pers = new Personne("Balcon", "Yoann", 1987);
+        PersonneExo pers = new PersonneExo("Balcon", "Yoann", 1987);
         System.out.println(pers.toString());
 
         // METHODE calculPoints()\\
-        Licencie pers2 = new Licencie("Du Test", "jean-Charles", "jc@test.fr", 1999, 1545, 1414, 2017);
+        LicencieExo pers2 = new LicencieExo("Du Test", "jean-Charles", "jc@test.fr", 1999, 1545, 1414, 2017);
 
         pers2.calculPoints(14, cal);
         try {
@@ -44,12 +44,12 @@ public class ExoEcf {
         }
 
         //JEU D'ESSAI\\
-        Proprietaire pro1 = new Proprietaire("Test", "Anthony", "antho@test.fr", 1981);
-        Proprietaire pro2 = new Proprietaire("Test", "Benjamin", "benj@test.fr", 1982);
-        Licencie lic1 = new Licencie("Test", "Cécile", "ceci@test.fr", 1983, 0001, 1500, 2017);
-        Licencie lic2 = new Licencie("Test", "Dominique", "dom@test.fr", 1984, 0002, 1465, 2016);
-        Licencie lic3 = new Licencie("Test", "Eric", "ric@test.fr", 1985, 0003, 8945, 2017);
-        Commissaire com1 = new Commissaire("Test", "François", "fanch@test.fr", 1987, "Finistère");
+        ProprietaireExo pro1 = new ProprietaireExo("Test", "Anthony", "antho@test.fr", 1981);
+        ProprietaireExo pro2 = new ProprietaireExo("Test", "Benjamin", "benj@test.fr", 1982);
+        LicencieExo lic1 = new LicencieExo("Test", "Cécile", "ceci@test.fr", 1983, 0001, 1500, 2017);
+        LicencieExo lic2 = new LicencieExo("Test", "Dominique", "dom@test.fr", 1984, 0002, 1465, 2016);
+        LicencieExo lic3 = new LicencieExo("Test", "Eric", "ric@test.fr", 1985, 0003, 8945, 2017);
+        CommissaireExo com1 = new CommissaireExo("Test", "François", "fanch@test.fr", 1987, "Finistère");
 
         ArrayList list = new ArrayList();
         list.add(pro1);
@@ -72,7 +72,7 @@ public class ExoEcf {
     }
 
     //CALCUL DE LA MOYENNE D'AGE\\
-    public static double calculMoyenneAge(ArrayList<Personne> liste) {
+    public static double calculMoyenneAge(ArrayList<PersonneExo> liste) {
         int somme = 0;
         for (int i = 0; i < liste.size(); i++) {
             somme = somme + liste.get(i).getAge();
@@ -82,7 +82,7 @@ public class ExoEcf {
     }
 
     //CALCUL DE L'AGE MEDIAN\\
-    public static double ageMedian(ArrayList<Personne> liste) {
+    public static double ageMedian(ArrayList<PersonneExo> liste) {
 
         double tab[] = new double[liste.size()];
         for (int i = 0; i < liste.size(); i++) {

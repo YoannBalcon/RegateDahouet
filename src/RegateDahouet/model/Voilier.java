@@ -23,6 +23,16 @@ public class Voilier {
         this.numVoile = numVoile;
     }
 
+    public Voilier(int id_voilier, String nom, int numVoile, Proprietaire proprietaire, Classe classe) {
+        this.id_voilier = id_voilier;
+        this.nom = nom;
+        this.numVoile = numVoile;
+        this.proprietaire = proprietaire;
+        this.classe = classe;
+    }
+    
+    
+
     public int getId_voilier() {
         return id_voilier;
     }
@@ -45,6 +55,14 @@ public class Voilier {
 
     public void setNumVoile(int numVoile) {
         this.numVoile = numVoile;
+    }
+
+    public Proprietaire getProprietaire() {
+        return proprietaire;
+    }
+
+    public Classe getClasse() {
+        return classe;
     }
     
 }
