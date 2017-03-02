@@ -18,7 +18,8 @@ public class RegateDahouet {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws SQLException {
-DahouetFrame mainFrame = new DahouetFrame();
-        mainFrame.setVisible(true);    }
-    
+        DahouetFrame mainFrame = new DahouetFrame();
+        mainFrame.setVisible(true);
+    }
+
 }

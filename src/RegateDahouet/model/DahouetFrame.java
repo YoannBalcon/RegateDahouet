@@ -6,12 +6,23 @@
 package RegateDahouet.model;
 
 import RegateDahouet.Dao.ClasseDao;
+import RegateDahouet.Dao.ConnectDb;
 import RegateDahouet.Dao.ProprietaireDao;
 import RegateDahouet.Dao.VoilierDao;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
+import sun.applet.Main;
 
 /**
  *
@@ -20,22 +31,27 @@ import java.util.logging.Logger;
 public class DahouetFrame extends javax.swing.JFrame {
 
     TableauVoilier tblv;
-    
+
     /**
      * Creates new form DahouetFrame
      */
+    public void emptyFieldWarning() {
+        JOptionPane jpWarning = new JOptionPane();
+        jpWarning.showMessageDialog(null, "Veuillez remplir tous les champs", "champs requis", JOptionPane.WARNING_MESSAGE);
+
+    }
+
     public DahouetFrame() throws SQLException {
         initComponents();
+
+        panelShipClass1.setVisible(false);
+        panelAddOwner.setVisible(false);
 
         List<Proprietaire> proprietaires = ProprietaireDao.findAll();
         for (Proprietaire p : proprietaires) {
             comboShipOwner.addItem(p);
         }
-        
-        List<Classe> classes = ClasseDao.findAll();
-        for (Classe c : classes){
-            comboShipClass.addItem(c);
-        }
+
     }
 
     /**
@@ -47,20 +63,50 @@ public class DahouetFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableauVoilier = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        PanelAddShipp = new javax.swing.JPanel();
         lblShipName = new javax.swing.JLabel();
         txtNameShip = new javax.swing.JTextField();
         lblNumShip = new javax.swing.JLabel();
-        txtNumSail = new javax.swing.JTextField();
         comboShipOwner = new javax.swing.JComboBox<>();
-        comboShipClass = new javax.swing.JComboBox<>();
         lblShipOwner = new javax.swing.JLabel();
+        btnReport = new javax.swing.JButton();
+        panelShipClass1 = new javax.swing.JPanel();
         lblShipClass = new javax.swing.JLabel();
+        comboShipClass = new javax.swing.JComboBox<>();
+        jPanel1 = new javax.swing.JPanel();
+        rbtnSerie1 = new javax.swing.JRadioButton();
+        rbtnSerie2 = new javax.swing.JRadioButton();
+        lblShipSerie = new javax.swing.JLabel();
+        txtNumSail = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         btnAddShip = new javax.swing.JButton();
         btnEraseShipForm = new javax.swing.JButton();
+        btnPlusOwner = new javax.swing.JButton();
+        panelAddOwner = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtOwnerFirstname = new javax.swing.JTextField();
+        txtOwnerName = new javax.swing.JTextField();
+        txtOwnerMail = new javax.swing.JTextField();
+        txtOwnerClub = new javax.swing.JTextField();
+        txtOwnerNumLicence = new javax.swing.JFormattedTextField();
+        txtOwnerYearLicence = new javax.swing.JFormattedTextField();
+        txtOwnerBirthYear = new javax.swing.JFormattedTextField();
+        jPanel4 = new javax.swing.JPanel();
+        btnAddOwner = new javax.swing.JButton();
+        btnEraseOwner = new javax.swing.JButton();
+        btnCancelOwner = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+
+        buttonGroup1.add(rbtnSerie1);
+        buttonGroup1.add(rbtnSerie2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,9 +126,81 @@ public class DahouetFrame extends javax.swing.JFrame {
 
         lblShipOwner.setText("Propriétaire");
 
+        btnReport.setText("Liste de départ");
+        btnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportActionPerformed(evt);
+            }
+        });
+
         lblShipClass.setText("Classe");
 
-        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+        comboShipClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboShipClassActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelShipClass1Layout = new javax.swing.GroupLayout(panelShipClass1);
+        panelShipClass1.setLayout(panelShipClass1Layout);
+        panelShipClass1Layout.setHorizontalGroup(
+            panelShipClass1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelShipClass1Layout.createSequentialGroup()
+                .addComponent(lblShipClass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(comboShipClass, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelShipClass1Layout.setVerticalGroup(
+            panelShipClass1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelShipClass1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelShipClass1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblShipClass)
+                    .addComponent(comboShipClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        rbtnSerie1.setText("Habitables");
+        rbtnSerie1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnSerie1ActionPerformed(evt);
+            }
+        });
+
+        rbtnSerie2.setText("Quillards de Sport");
+        rbtnSerie2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnSerie2ActionPerformed(evt);
+            }
+        });
+
+        lblShipSerie.setText("Série");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(lblShipSerie)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(rbtnSerie1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(rbtnSerie2))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnSerie2)
+                    .addComponent(rbtnSerie1)
+                    .addComponent(lblShipSerie))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        txtNumSail.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getIntegerInstance())));
+
+        jPanel2.setLayout(new java.awt.GridLayout());
 
         btnAddShip.setText("Ajouter");
         btnAddShip.addActionListener(new java.awt.event.ActionListener() {
@@ -100,52 +218,188 @@ public class DahouetFrame extends javax.swing.JFrame {
         });
         jPanel2.add(btnEraseShipForm);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblShipName)
-                            .addComponent(lblNumShip)
-                            .addComponent(lblShipOwner)
-                            .addComponent(lblShipClass))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(comboShipClass, 0, 130, Short.MAX_VALUE)
-                            .addComponent(comboShipOwner, 0, 130, Short.MAX_VALUE)
-                            .addComponent(txtNumSail)
-                            .addComponent(txtNameShip))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        btnPlusOwner.setText("+");
+        btnPlusOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlusOwnerActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Prénom");
+
+        txtOwnerFirstname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtOwnerFirstnameActionPerformed(evt);
+            }
+        });
+
+        txtOwnerNumLicence.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+
+        txtOwnerYearLicence.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy"))));
+
+        txtOwnerBirthYear.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("yyyy"))));
+
+        jPanel4.setLayout(new java.awt.GridLayout());
+
+        btnAddOwner.setText("OK");
+        btnAddOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddOwnerActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnAddOwner);
+
+        btnEraseOwner.setText("Effacer");
+        btnEraseOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEraseOwnerActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnEraseOwner);
+
+        btnCancelOwner.setText("Annuler");
+        btnCancelOwner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelOwnerActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnCancelOwner);
+
+        jLabel3.setText("Nom");
+
+        jLabel4.setText("e-mail");
+
+        jLabel5.setText("Club");
+
+        jLabel6.setText("Numéro de licence");
+
+        jLabel7.setText("Année de licence");
+
+        jLabel8.setText("Année de naissance");
+
+        javax.swing.GroupLayout panelAddOwnerLayout = new javax.swing.GroupLayout(panelAddOwner);
+        panelAddOwner.setLayout(panelAddOwnerLayout);
+        panelAddOwnerLayout.setHorizontalGroup(
+            panelAddOwnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAddOwnerLayout.createSequentialGroup()
+                .addGroup(panelAddOwnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                    .addGroup(panelAddOwnerLayout.createSequentialGroup()
+                        .addGroup(panelAddOwnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelAddOwnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtOwnerBirthYear)
+                            .addComponent(txtOwnerYearLicence)
+                            .addComponent(txtOwnerClub)
+                            .addComponent(txtOwnerMail)
+                            .addComponent(txtOwnerName)
+                            .addComponent(txtOwnerNumLicence, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtOwnerFirstname, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))))
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelAddOwnerLayout.setVerticalGroup(
+            panelAddOwnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAddOwnerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAddOwnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtOwnerFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAddOwnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOwnerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAddOwnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOwnerMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAddOwnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOwnerClub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAddOwnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOwnerNumLicence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAddOwnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOwnerYearLicence, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAddOwnerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtOwnerBirthYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(135, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout PanelAddShippLayout = new javax.swing.GroupLayout(PanelAddShipp);
+        PanelAddShipp.setLayout(PanelAddShippLayout);
+        PanelAddShippLayout.setHorizontalGroup(
+            PanelAddShippLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAddShippLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelAddShippLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelShipClass1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelAddShippLayout.createSequentialGroup()
+                        .addGroup(PanelAddShippLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblShipName)
+                            .addComponent(lblNumShip))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(PanelAddShippLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNameShip, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(txtNumSail)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(PanelAddShippLayout.createSequentialGroup()
+                        .addComponent(panelAddOwner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelAddShippLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnReport, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PanelAddShippLayout.createSequentialGroup()
+                        .addComponent(btnPlusOwner)
+                        .addGap(13, 13, 13)
+                        .addComponent(lblShipOwner)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(comboShipOwner, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        PanelAddShippLayout.setVerticalGroup(
+            PanelAddShippLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelAddShippLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelAddShippLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblShipName)
                     .addComponent(txtNameShip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelAddShippLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumShip)
                     .addComponent(txtNumSail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(17, 17, 17)
+                .addComponent(panelShipClass1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelAddShippLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboShipOwner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblShipOwner))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboShipClass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblShipClass))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(373, Short.MAX_VALUE))
+                    .addComponent(lblShipOwner)
+                    .addComponent(btnPlusOwner))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelAddShippLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAddShippLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnReport)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(panelAddOwner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -156,17 +410,17 @@ public class DahouetFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelAddShipp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(PanelAddShipp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -175,31 +429,164 @@ public class DahouetFrame extends javax.swing.JFrame {
 
     private void btnAddShipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddShipActionPerformed
         String v_nom = txtNameShip.getText();
-        int v_numVoile = Integer.parseInt(txtNumSail.getText());
-        Proprietaire v_proprietaire = (Proprietaire) comboShipOwner.getSelectedItem();
-        Classe v_classe = (Classe) comboShipClass.getSelectedItem();
+        if (v_nom.isEmpty() || txtNumSail.getText() == null || txtNumSail.getText().isEmpty() || !comboShipClass.isVisible()) {
+            emptyFieldWarning();
+        } else {
+            int v_numVoile = Integer.parseInt(txtNumSail.getText());
+            Proprietaire v_proprietaire = (Proprietaire) comboShipOwner.getSelectedItem();
+            Classe v_classe = (Classe) comboShipClass.getSelectedItem();
 
-        Voilier v = new Voilier(0, v_nom, v_numVoile, v_proprietaire, v_classe);
-        
-        try {
-            VoilierDao.create(v);
-            txtNameShip.setText(null);
-            txtNumSail.setText(null);
-        } catch (SQLException ex) {
-            Logger.getLogger(DahouetFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Voilier v = new Voilier(0, v_nom, v_numVoile, v_proprietaire, v_classe);
+            try {
+                VoilierDao.create(v);
+                txtNameShip.setText(null);
+                txtNumSail.setText(null);
+                JOptionPane.showMessageDialog(rootPane, "Voilier " + v_nom + " ajouté");
+                tblv.addVoilier(v);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(DahouetFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
+        buttonGroup1.clearSelection();
+        panelShipClass1.setVisible(false);
+
 
     }//GEN-LAST:event_btnAddShipActionPerformed
 
     private void btnEraseShipFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEraseShipFormActionPerformed
         txtNameShip.setText(null);
         txtNumSail.setText(null);
+        buttonGroup1.clearSelection();
+        panelShipClass1.setVisible(false);
 
     }//GEN-LAST:event_btnEraseShipFormActionPerformed
 
     private void comboShipOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboShipOwnerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboShipOwnerActionPerformed
+
+    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+        try {
+            JasperReport report = (JasperReport) JRLoader.loadObject(DahouetFrame.class.getResource("DahouetDepart.jasper"));
+            report.setProperty("net.sf.jasperreports.awt.ignore.missing.font", "false");
+            report.setProperty("net.sf.jasperreports.default.font.name=SansSerif", "true");
+            HashMap<String, Object> params = new HashMap<>();
+
+            JasperPrint jPrint = JasperFillManager.fillReport(report, params, ConnectDb.getConnection());
+
+            JFrame pdfFrame = new JFrame("Rapport");
+            pdfFrame.getContentPane().add(new JRViewer(jPrint));
+            pdfFrame.pack();
+            pdfFrame.setSize(this.getSize());
+            pdfFrame.setVisible(true);
+
+        } catch (JRException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DahouetFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReportActionPerformed
+
+    private void comboShipClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboShipClassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboShipClassActionPerformed
+
+    private void rbtnSerie1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSerie1ActionPerformed
+        comboShipClass.removeAllItems();
+
+        List<Classe> classes;
+        try {
+            classes = ClasseDao.findBySerie(1);
+            for (Classe c : classes) {
+                comboShipClass.addItem(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DahouetFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        panelShipClass1.setVisible(true);
+    }//GEN-LAST:event_rbtnSerie1ActionPerformed
+
+    private void rbtnSerie2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnSerie2ActionPerformed
+        comboShipClass.removeAllItems();
+
+        List<Classe> classes;
+        try {
+            classes = ClasseDao.findBySerie(2);
+            for (Classe c : classes) {
+                comboShipClass.addItem(c);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DahouetFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        panelShipClass1.setVisible(true);
+    }//GEN-LAST:event_rbtnSerie2ActionPerformed
+
+    private void btnPlusOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusOwnerActionPerformed
+        panelAddOwner.setVisible(true);
+    }//GEN-LAST:event_btnPlusOwnerActionPerformed
+
+    private void btnAddOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddOwnerActionPerformed
+        String prenom = txtOwnerFirstname.getText();
+        String nom = txtOwnerName.getText();
+        String email = txtOwnerMail.getText();
+        String club = txtOwnerClub.getText();
+
+        if (nom.isEmpty()
+                || prenom.isEmpty()
+                || email.isEmpty()
+                || club.isEmpty()
+                || txtOwnerNumLicence.getText().isEmpty()
+                || txtOwnerNumLicence.getText() == null
+                || txtOwnerYearLicence.getText().isEmpty()
+                || txtOwnerYearLicence.getText() == null
+                || txtOwnerBirthYear.getText().isEmpty()
+                || txtOwnerBirthYear.getText() == null) {
+            emptyFieldWarning();
+        } else {
+            int numLicence = Integer.parseInt(txtOwnerNumLicence.getText());
+            int anneeLicence = Integer.parseInt(txtOwnerYearLicence.getText());
+            int anneeNaissance = Integer.parseInt(txtOwnerBirthYear.getText());
+            Proprietaire p = new Proprietaire(0, nom, prenom, email, club, numLicence, anneeLicence, anneeNaissance);
+            try {
+                ProprietaireDao.create(p);
+                txtOwnerFirstname.setText(null);
+                txtOwnerName.setText(null);
+                txtOwnerMail.setText(null);
+                txtOwnerClub.setText(null);
+                txtOwnerNumLicence.setText(null);
+                txtOwnerYearLicence.setText(null);
+                txtOwnerBirthYear.setText(null);
+                JOptionPane.showMessageDialog(rootPane, prenom + " " + nom + " ajouté à la liste des proprietaires");
+            } catch (SQLException ex) {
+                Logger.getLogger(DahouetFrame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(DahouetFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_btnAddOwnerActionPerformed
+
+    private void txtOwnerFirstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOwnerFirstnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtOwnerFirstnameActionPerformed
+
+    private void btnCancelOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelOwnerActionPerformed
+        panelAddOwner.setVisible(false);
+    }//GEN-LAST:event_btnCancelOwnerActionPerformed
+
+    private void btnEraseOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEraseOwnerActionPerformed
+        txtOwnerFirstname.setText(null);
+        txtOwnerName.setText(null);
+        txtOwnerMail.setText(null);
+        txtOwnerClub.setText(null);
+        txtOwnerNumLicence.setText(null);
+        txtOwnerYearLicence.setText(null);
+        txtOwnerBirthYear.setText(null);
+    }//GEN-LAST:event_btnEraseOwnerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,42 +602,77 @@ public class DahouetFrame extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DahouetFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DahouetFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DahouetFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DahouetFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DahouetFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DahouetFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DahouetFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DahouetFrame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-              
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelAddShipp;
     private javax.swing.JTable TableauVoilier;
+    private javax.swing.JButton btnAddOwner;
     private javax.swing.JButton btnAddShip;
+    private javax.swing.JButton btnCancelOwner;
+    private javax.swing.JButton btnEraseOwner;
     private javax.swing.JButton btnEraseShipForm;
+    private javax.swing.JButton btnPlusOwner;
+    private javax.swing.JButton btnReport;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<Classe> comboShipClass;
     private javax.swing.JComboBox<Proprietaire> comboShipOwner;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblNumShip;
     private javax.swing.JLabel lblShipClass;
     private javax.swing.JLabel lblShipName;
     private javax.swing.JLabel lblShipOwner;
+    private javax.swing.JLabel lblShipSerie;
+    private javax.swing.JPanel panelAddOwner;
+    private javax.swing.JPanel panelShipClass1;
+    private javax.swing.JRadioButton rbtnSerie1;
+    private javax.swing.JRadioButton rbtnSerie2;
     private javax.swing.JTextField txtNameShip;
-    private javax.swing.JTextField txtNumSail;
+    private javax.swing.JFormattedTextField txtNumSail;
+    private javax.swing.JFormattedTextField txtOwnerBirthYear;
+    private javax.swing.JTextField txtOwnerClub;
+    private javax.swing.JTextField txtOwnerFirstname;
+    private javax.swing.JTextField txtOwnerMail;
+    private javax.swing.JTextField txtOwnerName;
+    private javax.swing.JFormattedTextField txtOwnerNumLicence;
+    private javax.swing.JFormattedTextField txtOwnerYearLicence;
     // End of variables declaration//GEN-END:variables
 
 }
