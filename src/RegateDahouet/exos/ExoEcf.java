@@ -13,6 +13,9 @@ import RegateDahouet.exoModel.CommissaireExo;
 import RegateDahouet.exoModel.LicencieExo;
 import RegateDahouet.exoModel.PersonneExo;
 import RegateDahouet.exoModel.ProprietaireExo;
+import RegateDahouet.exoModel.emailValidation;
+import RegateDahouet.model.Personne;
+import java.util.Scanner;
 
 /**
  *
@@ -29,12 +32,24 @@ public class ExoEcf {
         cal.set(Calendar.YEAR, 2017);
         cal.set(Calendar.MONTH, 11);
         cal.set(Calendar.DAY_OF_MONTH, 27);
+//Vérification d'e-mail\\
+        Scanner sc = new Scanner(System.in);
+        System.out.println("entrez une adresse mail :");
+        String v_mail = sc.nextLine();
 
-        //METHODE toString()\\
+        System.out.println(emailValidation.isEmail(v_mail));
+
+        if (!emailValidation.isEmail(v_mail)) {
+            System.out.println("adresse non valide");
+        } else {
+            System.out.print("adresse valide");
+        }
+
+//METHODE toString()\\
         PersonneExo pers = new PersonneExo("Balcon", "Yoann", 1987);
         System.out.println(pers.toString());
 
-        // METHODE calculPoints()\\
+// METHODE calculPoints()\\
         LicencieExo pers2 = new LicencieExo("Du Test", "jean-Charles", "jc@test.fr", 1999, 1545, 1414, 2017);
 
         pers2.calculPoints(14, cal);
@@ -43,7 +58,7 @@ public class ExoEcf {
         } catch (Exception e) {
         }
 
-        //JEU D'ESSAI\\
+//JEU D'ESSAI\\
         ProprietaireExo pro1 = new ProprietaireExo("Test", "Anthony", "antho@test.fr", 1981);
         ProprietaireExo pro2 = new ProprietaireExo("Test", "Benjamin", "benj@test.fr", 1982);
         LicencieExo lic1 = new LicencieExo("Test", "Cécile", "ceci@test.fr", 1983, 0001, 1500, 2017);
@@ -61,7 +76,6 @@ public class ExoEcf {
 
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
-
         }
 
         double moyenne = calculMoyenneAge(list);
@@ -71,7 +85,7 @@ public class ExoEcf {
         System.out.println("age médian : " + mediane);
     }
 
-    //CALCUL DE LA MOYENNE D'AGE\\
+//CALCUL DE LA MOYENNE D'AGE\\
     public static double calculMoyenneAge(ArrayList<PersonneExo> liste) {
         int somme = 0;
         for (int i = 0; i < liste.size(); i++) {
@@ -81,7 +95,7 @@ public class ExoEcf {
         return result;
     }
 
-    //CALCUL DE L'AGE MEDIAN\\
+//CALCUL DE L'AGE MEDIAN\\
     public static double ageMedian(ArrayList<PersonneExo> liste) {
 
         double tab[] = new double[liste.size()];
@@ -89,9 +103,9 @@ public class ExoEcf {
             tab[i] = liste.get(i).getAge();
         }
         Arrays.sort(tab);
-// on recupère l'index médian
+    // on recupère l'index médian
         int x = tab.length / 2;
-
+    //calcul de la médiane
         if (tab.length % 2 == 0) {
             return (tab[x - 1] + tab[x]) / 2;
         } else {

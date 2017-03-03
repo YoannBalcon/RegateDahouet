@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-02T09:25:08 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="blankDahouet" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3a5c9ff1-03c4-4089-afc8-2eb77449e306">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DahouetAdapter"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT chal.nom as challenge, reg.nomRegate, reg.regDate, reg.numRegate, com.prenom,
+com.nom as commissaire, pe.prenom as skipperPrenom, pe.nom as skipperNom,
+v.numVoile, v.id_voilier
+FROM regate reg INNER JOIN challenge chal
+ON reg.id_challenge=chal.id_challenge
+INNER JOIN commissaire com ON reg.id_commissaire=com.id_commissaire
+INNER JOIN participation pa ON reg.id_regate=pa.id_regate
+INNER JOIN voilier v ON pa.id_voilier=v.id_voilier
+INNER JOIN equipage eq ON eq.id_equipage=pa.id_equipage
+INNER JOIN personne pe ON pe.id_personne=eq.id_skipper
+WHERE reg.id_regate= 2]]>
+	</queryString>
+	<field name="challenge" class="java.lang.String"/>
+	<field name="nomRegate" class="java.lang.String"/>
+	<field name="regDate" class="java.sql.Date"/>
+	<field name="numRegate" class="java.lang.Integer"/>
+	<field name="prenom" class="java.lang.String"/>
+	<field name="commissaire" class="java.lang.String"/>
+	<field name="skipperPrenom" class="java.lang.String"/>
+	<field name="skipperNom" class="java.lang.String"/>
+	<field name="numVoile" class="java.lang.Integer"/>
+	<field name="id_voilier" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

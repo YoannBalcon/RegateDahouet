@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-02T09:39:29 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="liste2" pageWidth="842" pageHeight="270" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="5a1e230f-9e32-402e-8f1e-5314a2a4e0f4">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DahouetAdapter"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString language="SQL">
+		<![CDATA[select ch.nom as challenge, r.regDate, r.numRegate,
+c.prenom, c.nom as commissaire
+from regate r
+inner join commissaire c 
+on r.id_commissaire =c.id_commissaire
+inner join challenge ch
+on r.id_challenge=ch.id_challenge]]>
+	</queryString>
+	<field name="challenge" class="java.lang.String"/>
+	<field name="regDate" class="java.sql.Date"/>
+	<field name="numRegate" class="java.lang.Integer"/>
+	<field name="prenom" class="java.lang.String"/>
+	<field name="commissaire" class="java.lang.String"/>
+	<title>
+		<band height="80" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="10" width="140" height="30" uuid="92ed130c-d693-4b9c-a3d7-4e8405df7eb8"/>
+				<textFieldExpression><![CDATA[$F{challenge}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="10" width="100" height="30" uuid="5ef79769-861e-420b-86af-625439a10998"/>
+				<textFieldExpression><![CDATA[$F{numRegate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="50" width="70" height="30" uuid="0a6c9aa9-8127-4bb7-bb5f-99e5082c5b2f"/>
+				<textFieldExpression><![CDATA[$F{prenom}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="50" width="100" height="30" uuid="480844df-f610-4ad7-852d-d3f90323e65f"/>
+				<textFieldExpression><![CDATA[$F{commissaire}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="10" width="60" height="30" uuid="f4ff563c-5c6a-4958-af3b-51ac38a132ac"/>
+				<textFieldExpression><![CDATA["Régate n°"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="10" width="100" height="30" uuid="e97db34f-6905-4ffa-9684-25afd6d96c92"/>
+				<textFieldExpression><![CDATA[$F{regDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="50" width="130" height="30" uuid="3401a3ca-be61-4100-8b53-71336dacda99"/>
+				<textFieldExpression><![CDATA["Nom du commissaire :"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>
