@@ -14,7 +14,6 @@ import RegateDahouet.exoModel.LicencieExo;
 import RegateDahouet.exoModel.PersonneExo;
 import RegateDahouet.exoModel.ProprietaireExo;
 import RegateDahouet.exoModel.emailValidation;
-import RegateDahouet.model.Personne;
 import java.util.Scanner;
 
 /**
@@ -32,6 +31,7 @@ public class ExoEcf {
         cal.set(Calendar.YEAR, 2017);
         cal.set(Calendar.MONTH, 11);
         cal.set(Calendar.DAY_OF_MONTH, 27);
+        
 //Vérification d'e-mail\\
         Scanner sc = new Scanner(System.in);
         System.out.println("entrez une adresse mail :");

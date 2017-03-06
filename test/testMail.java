@@ -42,7 +42,14 @@ public class testMail {
     //
     @Test
     public void testEmail() {
+        
+// Exemples vérifiant le pattern
         assertTrue(emailValidation.isEmail("test@test.test"));
+        assertTrue(emailValidation.isEmail("te@st.fr"));
+        
+// Exemples na vérifiant pas le pattern
+        assertFalse(emailValidation.isEmail("test.test@test"));
+        assertFalse(emailValidation.isEmail("t@t.t"));
         assertFalse(emailValidation.isEmail("test@t.t"));
     }
 }

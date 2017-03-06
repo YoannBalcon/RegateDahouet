@@ -429,18 +429,20 @@ public class DahouetFrame extends javax.swing.JFrame {
 
     private void btnAddShipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddShipActionPerformed
         String v_nom = txtNameShip.getText();
+//Si au moins un champs est vide, renvoie un message d'erreur.
         if (v_nom.isEmpty() || txtNumSail.getText() == null || txtNumSail.getText().isEmpty() || !comboShipClass.isVisible()) {
             emptyFieldWarning();
         } else {
             int v_numVoile = Integer.parseInt(txtNumSail.getText());
             Proprietaire v_proprietaire = (Proprietaire) comboShipOwner.getSelectedItem();
             Classe v_classe = (Classe) comboShipClass.getSelectedItem();
-
+// création d'un nouveau voilier
             Voilier v = new Voilier(0, v_nom, v_numVoile, v_proprietaire, v_classe);
             try {
                 VoilierDao.create(v);
                 txtNameShip.setText(null);
                 txtNumSail.setText(null);
+                // affichage d'un message de confirmation
                 JOptionPane.showMessageDialog(rootPane, "Voilier " + v_nom + " ajouté");
                 tblv.addVoilier(v);
 
@@ -468,6 +470,7 @@ public class DahouetFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_comboShipOwnerActionPerformed
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
+        // génération d'état
         try {
             JasperReport report = (JasperReport) JRLoader.loadObject(DahouetFrame.class.getResource("DahouetDepart.jasper"));
             report.setProperty("net.sf.jasperreports.awt.ignore.missing.font", "false");
@@ -497,6 +500,7 @@ public class DahouetFrame extends javax.swing.JFrame {
         comboShipClass.removeAllItems();
 
         List<Classe> classes;
+        // Affichage des classes par rapport à la série choisie (ici, la 1)
         try {
             classes = ClasseDao.findBySerie(1);
             for (Classe c : classes) {
@@ -526,6 +530,7 @@ public class DahouetFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_rbtnSerie2ActionPerformed
 
     private void btnPlusOwnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlusOwnerActionPerformed
+       // On rend le JPanel d'ajout de propriétaire visible
         panelAddOwner.setVisible(true);
     }//GEN-LAST:event_btnPlusOwnerActionPerformed
 
@@ -534,7 +539,7 @@ public class DahouetFrame extends javax.swing.JFrame {
         String nom = txtOwnerName.getText();
         String email = txtOwnerMail.getText();
         String club = txtOwnerClub.getText();
-
+// Message d'erreur
         if (nom.isEmpty()
                 || prenom.isEmpty()
                 || email.isEmpty()
@@ -552,6 +557,7 @@ public class DahouetFrame extends javax.swing.JFrame {
             int anneeNaissance = Integer.parseInt(txtOwnerBirthYear.getText());
             Proprietaire p = new Proprietaire(0, nom, prenom, email, club, numLicence, anneeLicence, anneeNaissance);
             try {
+// Création d'un propriétaire
                 ProprietaireDao.create(p);
                 txtOwnerFirstname.setText(null);
                 txtOwnerName.setText(null);
@@ -560,6 +566,7 @@ public class DahouetFrame extends javax.swing.JFrame {
                 txtOwnerNumLicence.setText(null);
                 txtOwnerYearLicence.setText(null);
                 txtOwnerBirthYear.setText(null);
+// Message de confirmation
                 JOptionPane.showMessageDialog(rootPane, prenom + " " + nom + " ajouté à la liste des proprietaires");
             } catch (SQLException ex) {
                 Logger.getLogger(DahouetFrame.class.getName()).log(Level.SEVERE, null, ex);
